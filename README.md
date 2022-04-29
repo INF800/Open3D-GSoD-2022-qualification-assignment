@@ -87,7 +87,7 @@ You’re expected to:
   </details>
 
   <details open>
-  <summary>Bind a dummy printing function to understand pybind</summary>
+  <summary>Add Open3D as submodule</summary>
     <br>    
 
     ### Add submodule
@@ -96,6 +96,9 @@ You’re expected to:
     ```shell
     git submodule add https://github.com/isl-org/Open3D
     ```
+
+    > You may add Open3d in the main dir by simply cloning it but the change will not be tracked.
+
   </details>
 
 
