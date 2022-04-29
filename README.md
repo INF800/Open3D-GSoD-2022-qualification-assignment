@@ -6,7 +6,7 @@
 
 You’re expected to:
 
-- [ ] 1. Compile Open3D from source: http://www.open3d.org/docs/latest/compilation.html.
+- [x] 1. Compile Open3D from source: http://www.open3d.org/docs/latest/compilation.html.
 
   <details open>
   <summary>Compilation steps</summary>
@@ -45,6 +45,46 @@ You’re expected to:
   <details open>
   <summary>Bind a dummy printing function to understand pybind</summary>
     <br>    
+
+    <i>You may follow similar steps to add your own custom method</i>
+
+    - Add `DummyMethod` *signature* in `./Open3D/cpp/open3d/geometry/TriangleMesh.h` file<br>
+      ```c++
+      // just like signature of `IsEdgeManifold` 
+      // ---------------------------------------
+      ...
+      /// Function for testing how to use pybind
+      bool DummyMethod(bool arg1 = true) const;
+      ...
+      ```
+    - Add `DummyMethod` *definition* in `./Open3D/cpp/open3d/geometry/TriangleMesh.cpp`<br>
+      ```c++
+      // outside the TriangleMesh class just like `IsEdgeManifold`'s definition
+      // ----------------------------------------------------------------------
+      bool TriangleMesh::DummyMethod(
+              bool arg1 /* = true */) const {
+          // dummy function
+          return true;
+      }
+      ```
+    - Add `dummy_method` *binding* in `./Open3D/cpp/pybind/geometry/trianglemesh.cpp`<br> 
+      ```c++
+      // just like binding `is_edge_manifold`
+      // -----------------------------------
+      ...
+      .def("dummy_method", &TriangleMesh::DummyMethod,
+           "Dummy method to test pybinding.")
+      ...
+
+      ```
+    - Run `cd build && sudo cmake .. && make -j$(nproc) && sudo make install && make install-pip-package` (there should be no c++ errors)<br>
+    - Test in python interpreter<br>
+      ```
+      >>> import open3d as o3d
+      >>> o3d.geometry.TriangleMesh().dummy_method(-1)
+      True
+      ```
+
   </details>
 
 - [ ] 2. Write C++ function `open3d::geometry::TriangleMesh::IdenticallyColoredConnectedComponents`
