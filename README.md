@@ -84,8 +84,20 @@ You’re expected to:
       >>> o3d.geometry.TriangleMesh().dummy_method(-1)
       True
       ```
-
   </details>
+
+  <details open>
+  <summary>Bind a dummy printing function to understand pybind</summary>
+    <br>    
+
+    ### Add submodule
+
+    Add Open3D project as a trackable project inside current project using
+    ```shell
+    git submodule add https://github.com/isl-org/Open3D
+    ```
+  </details>
+
 
 - [ ] 2. Write C++ function `open3d::geometry::TriangleMesh::IdenticallyColoredConnectedComponents`
 - [ ] 3. Write Python binding `open3d.geometry.TriangleMesh.identically_colored_connected_components`.
