@@ -91,15 +91,15 @@ You’re expected to:
   <summary>Add Open3D</summary>
     <br>    
 
-    **Note:** We are simply uploading the Open3D project folder and removing all tracking information by deleting the `.git` folder. A better way to add it is using submodules. But not doing it here because it is definitely an overkill!
+    **Note:** We are simply uploading the Open3D project folder and removing all tracking information by deleting the `.git` folder. A better way to add it is using submodules. But **not using submodules here because it is definitely an overkill!**
 
-    ### Add as submodule
-
-    Add Open3D project as a trackable project inside current project using
-    ```shell
-    git submodule add https://github.com/isl-org/Open3D
-    ```
-
+    > ### Add as submodule
+    > 
+    > Add Open3D project as a trackable project inside current project using
+    > ```shell
+    > git submodule add https://github.com/isl-org/Open3D
+    > ```
+    > 
     > You may add Open3d in the main dir by simply cloning it but the change will not be tracked.
 
   </details>
