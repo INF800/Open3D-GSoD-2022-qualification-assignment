@@ -87,10 +87,13 @@ You’re expected to:
   </details>
 
   <details open>
-  <summary>Add Open3D as submodule</summary>
+
+  <summary>Add Open3D</summary>
     <br>    
 
-    ### Add submodule
+    **Note:** We are simply uploading the Open3D project folder and removing all tracking information by deleting the `.git` folder. A better way to add it is using submodules. But not doing it here because it is definitely an overkill!
+
+    ### Add as submodule
 
     Add Open3D project as a trackable project inside current project using
     ```shell
