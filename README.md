@@ -84,8 +84,26 @@ You’re expected to:
       >>> o3d.geometry.TriangleMesh().dummy_method(-1)
       True
       ```
+  </details>
+
+  <details open>
+
+  <summary>Add Open3D</summary>
+    <br>    
+
+    **Note:** We are simply uploading the Open3D project folder and removing all tracking information by deleting the `.git` folder. A better way to add it is using submodules. But **not using submodules here because it is definitely an overkill!**
+
+    > ### Add as submodule
+    > 
+    > Add Open3D project as a trackable project inside current project using
+    > ```shell
+    > git submodule add https://github.com/isl-org/Open3D
+    > ```
+    > 
+    > ALternatively, you may also add Open3d in the main dir by simply cloning it but changes will not be tracked if done so.
 
   </details>
+
 
 - [ ] 2. Write C++ function `open3d::geometry::TriangleMesh::IdenticallyColoredConnectedComponents`
 - [ ] 3. Write Python binding `open3d.geometry.TriangleMesh.identically_colored_connected_components`.
