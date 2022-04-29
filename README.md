@@ -7,6 +7,24 @@
 You’re expected to:
 
 - [ ] 1. Compile Open3D from source: http://www.open3d.org/docs/latest/compilation.html.
+
+  <details open>
+  <summary>Compilation steps</summary>
+    <br>
+
+    <h3>System Specs</h3>
+
+    Note: this is a CPU only machine from github codespaces.
+
+    ```shell
+    OS: Ubuntu 20.04.4 LTS (Focal Fossa)                # cat /etc/os-release
+    gcc: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0      # gcc --version
+    clang: clang version 10.0.0-4ubuntu1                # clang --version
+    cmake: cmake version 3.23.1                         # cfollow steps from `https://apt.kitware.com/` 
+    ```
+    
+  </details>
+
 - [ ] 2. Write C++ function `open3d::geometry::TriangleMesh::IdenticallyColoredConnectedComponents`
 - [ ] 3. Write Python binding `open3d.geometry.TriangleMesh.identically_colored_connected_components`.
 - [ ] 4. Write `examples/cpp/Solution.cpp` to read the input mesh `test_mesh.ply`, find identically-colored connected components. **Change the build system** so that an executable can be build.
