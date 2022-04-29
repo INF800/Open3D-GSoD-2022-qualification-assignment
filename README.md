@@ -100,7 +100,7 @@ You’re expected to:
     > git submodule add https://github.com/isl-org/Open3D
     > ```
     > 
-    > You may add Open3d in the main dir by simply cloning it but the change will not be tracked.
+    > ALternatively, you may also add Open3d in the main dir by simply cloning it but changes will not be tracked if done so.
 
   </details>
 
