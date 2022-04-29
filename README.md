@@ -12,16 +12,20 @@ You’re expected to:
   <summary>Compilation steps</summary>
     <br>
 
-    <h3>System Specs</h3>
+    <h3>System specs</h3>
 
-    Note: this is a CPU only machine from github codespaces.
+    <b>Note:</b> This is a CPU only machine from github codespaces.
 
-    ```shell
-    OS: Ubuntu 20.04.4 LTS (Focal Fossa)                # cat /etc/os-release
-    gcc: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0      # gcc --version
-    clang: clang version 10.0.0-4ubuntu1                # clang --version
-    cmake: cmake version 3.23.1                         # cfollow steps from `https://apt.kitware.com/` 
-    ```
+    <pre>
+    OS: Ubuntu 20.04.4 LTS (Focal Fossa)                # `cat /etc/os-release`
+    gcc: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0      # `gcc --version`
+    clang: clang version 10.0.0-4ubuntu1                # `clang --version`
+    cmake: cmake version 3.23.1                         # `cmake --verson` after following steps from `https://apt.kitware.com/` 
+    CUDA: n/a
+    ccache: ccache version 3.7.7                        # `ccache --version` after `sudo apt install ccache` (CPU Only)
+    <pre>
+
+    
     
   </details>
 
