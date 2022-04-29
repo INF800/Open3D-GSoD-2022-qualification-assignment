@@ -7,6 +7,46 @@
 You’re expected to:
 
 - [ ] 1. Compile Open3D from source: http://www.open3d.org/docs/latest/compilation.html.
+
+  <details open>
+  <summary>Compilation steps</summary>
+    <br>
+
+    <h3>1. System specs</h3>
+
+    <b>Note:</b> This is a CPU only machine from github codespaces.
+
+    <pre>
+    OS: Ubuntu 20.04.4 LTS (Focal Fossa)                # `cat /etc/os-release`
+    gcc: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0      # `gcc --version`
+    clang: clang version 10.0.0-4ubuntu1                # `clang --version`
+    cmake: cmake version 3.23.1                         # `cmake --verson` after following steps from `https://apt.kitware.com/` 
+    CUDA: n/a
+    ccache: ccache version 3.7.7                        # `ccache --version` after `sudo apt install ccache` (CPU Only)
+    Python: 3.8.12                                      # `python --version`
+    </pre>
+
+
+    <h3>2. Setup</h3>
+    
+    A. Clone `git clone https://github.com/isl-org/Open3D`</br>
+    B. Install dependencies `cd Open3D && util/install_deps_ubuntu.sh`</br>
+    C. Config `mkdir build && cd build && sudo cmake ..`</br>
+    D. Build `make -j$(nproc)` <b>(takes veryyy long time)</b></br>
+    E. Install Open3d C++ lib `sudo make install`</br>
+    F. Install Open3d Python lib `make install-pip-package`</br>
+    E. Verify `python -c "import open3d; print(dir(open3d));"`</br>
+
+    </br>
+    </br>
+
+  </details>
+
+  <details open>
+  <summary>Bind a dummy printing function to understand pybind</summary>
+    <br>    
+  </details>
+
 - [ ] 2. Write C++ function `open3d::geometry::TriangleMesh::IdenticallyColoredConnectedComponents`
 - [ ] 3. Write Python binding `open3d.geometry.TriangleMesh.identically_colored_connected_components`.
 - [ ] 4. Write `examples/cpp/Solution.cpp` to read the input mesh `test_mesh.ply`, find identically-colored connected components. **Change the build system** so that an executable can be build.
