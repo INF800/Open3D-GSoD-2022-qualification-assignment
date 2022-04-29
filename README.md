@@ -1,5 +1,6 @@
 # Open3D-GSoD-2022-qualification-assignment
 
+**Deadline:** May 06, 23:59 UTC / May 07, 05:29 AM IST
 
 ### Tasks
 
