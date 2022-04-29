@@ -6,7 +6,7 @@
 
 You’re expected to:
 
-- [ ] 1. Compile Open3D from source: http://www.open3d.org/docs/latest/compilation.html.
+- [x] 1. Compile Open3D from source: http://www.open3d.org/docs/latest/compilation.html.
 
   <details open>
   <summary>Compilation steps</summary>
