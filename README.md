@@ -33,9 +33,18 @@ You’re expected to:
     B. Install dependencies `cd Open3D && util/install_deps_ubuntu.sh`</br>
     C. Config `mkdir build && cd build && sudo cmake ..`</br>
     D. Build `make -j$(nproc)` <b>(takes veryyy long time)</b></br>
-    E. Install Open3d C++ lib `sudo make install`
-    F. Install Open3d Python lib `make install-pip-package`
-    E. Verify `python -c "import open3d; print(dir(open3d));"`
+    E. Install Open3d C++ lib `sudo make install`</br>
+    F. Install Open3d Python lib `make install-pip-package`</br>
+    E. Verify `python -c "import open3d; print(dir(open3d));"`</br>
+
+    </br>
+    </br>
+
+  </details>
+
+  <details open>
+  <summary>Bind a dummy printing function to understand pybind</summary>
+    <br>    
   </details>
 
 - [ ] 2. Write C++ function `open3d::geometry::TriangleMesh::IdenticallyColoredConnectedComponents`
