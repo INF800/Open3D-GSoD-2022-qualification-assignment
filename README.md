@@ -12,7 +12,7 @@ You’re expected to:
   <summary>Compilation steps</summary>
     <br>
 
-    <h3>System specs</h3>
+    <h3>1. System specs</h3>
 
     <b>Note:</b> This is a CPU only machine from github codespaces.
 
@@ -23,10 +23,19 @@ You’re expected to:
     cmake: cmake version 3.23.1                         # `cmake --verson` after following steps from `https://apt.kitware.com/` 
     CUDA: n/a
     ccache: ccache version 3.7.7                        # `ccache --version` after `sudo apt install ccache` (CPU Only)
-    <pre>
+    Python: 3.8.12                                      # `python --version`
+    </pre>
 
+
+    <h3>2. Setup</h3>
     
-    
+    A. Clone `git clone https://github.com/isl-org/Open3D`</br>
+    B. Install dependencies `cd Open3D && util/install_deps_ubuntu.sh`</br>
+    C. Config `mkdir build && cd build && sudo cmake ..`</br>
+    D. Build `make -j$(nproc)` <b>(takes veryyy long time)</b></br>
+    E. Install Open3d C++ lib `sudo make install`
+    F. Install Open3d Python lib `make install-pip-package`
+    E. Verify `python -c "import open3d; print(dir(open3d));"`
   </details>
 
 - [ ] 2. Write C++ function `open3d::geometry::TriangleMesh::IdenticallyColoredConnectedComponents`
