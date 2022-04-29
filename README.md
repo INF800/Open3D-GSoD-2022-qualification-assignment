@@ -84,6 +84,7 @@ You’re expected to:
       >>> o3d.geometry.TriangleMesh().dummy_method(-1)
       True
       ```
+
   </details>
 
   <details open>
@@ -103,6 +104,7 @@ You’re expected to:
     > ALternatively, you may also add Open3d in the main dir by simply cloning it but changes will not be tracked if done so.
 
   </details>
+
 
 
 - [ ] 2. Write C++ function `open3d::geometry::TriangleMesh::IdenticallyColoredConnectedComponents`
