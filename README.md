@@ -133,6 +133,21 @@ You’re expected to:
     3. Add `identically_colored_connected_components` python binding in `./Open3D/cpp/pybind/geometry/trianglemesh.cpp` <br>
     4. Run `cd build && sudo cmake .. && make -j$(nproc) && sudo make install && make install-pip-package` <br>
     5. Test new method in C++ and Python 
+    
+    > ### Common issues
+    > while running cpp file using `gcc examples/cpp/IdenticallyColoredConnectedComponents.cpp -lstdc++` error is raised -
+    > ```
+    > /usr/local/include/open3d/camera/PinholeCameraIntrinsic.h:29:10: fatal error: Eigen/Core: No such file or directory
+    > ```
+    > Solution is to run in shell:
+    > ```
+    > sudo apt-get install libeigen3-dev
+    > sudo ln -s /usr/include/eigen3/Eigen /usr/include/Eigen
+    > ```
+    > 
+    > similarly the ```sudo apt install libfmt-dev libglfw3-dev ```
+
+
   </details>
 - [ ] 3. Write `examples/cpp/Solution.cpp` to read the input mesh `test_mesh.ply`, find identically-colored connected components. **Change the build system** so that an executable can be build.
 - [ ] 4. Write `examples/python/solution.py` to read the input mesh `test_mesh.ply`, find identically-colored connected components and print results.
