@@ -2,13 +2,15 @@
 
 **Deadline:** May 06, 23:59 UTC / May 07, 05:29 AM IST
 
+![](./assets/test_mesh.gif)
+
 ### Tasks
 
 You’re expected to:
 
 - [x] 1. Compile Open3D from source: http://www.open3d.org/docs/latest/compilation.html.
 
-  <details open>
+  <details closed>
   <summary>Compilation steps</summary>
     <br>
 
@@ -42,7 +44,7 @@ You’re expected to:
 
   </details>
 
-  <details open>
+  <details closed>
   <summary>Bind a dummy printing function to understand pybind</summary>
     <br>    
 
@@ -87,7 +89,7 @@ You’re expected to:
 
   </details>
 
-  <details open>
+  <details closed>
 
   <summary>Add Open3D</summary>
     <br>    
@@ -107,13 +109,36 @@ You’re expected to:
 
 
 
-- [ ] 2. Write C++ function `open3d::geometry::TriangleMesh::IdenticallyColoredConnectedComponents`
-- [ ] 3. Write Python binding `open3d.geometry.TriangleMesh.identically_colored_connected_components`.
-- [ ] 4. Write `examples/cpp/Solution.cpp` to read the input mesh `test_mesh.ply`, find identically-colored connected components. **Change the build system** so that an executable can be build.
-- [ ] 5. Write `examples/python/solution.py` to read the input mesh `test_mesh.ply`, find identically-colored connected components and print results.
-- [ ] 6. Output the result of task 3 or 4 (their results shall be the same) to `examples/result.txt`.
-- [ ] 7. Write C++ and Python unit tests integrated with Open3D’s unit test system.
-- [ ] 8. Document your code, the algorithm used, how to build and run, and etc.
+- [ ] 2. Write C++ function `open3d::geometry::TriangleMesh::IdenticallyColoredConnectedComponents` and Python binding `open3d.geometry.TriangleMesh.identically_colored_connected_components`.
+  <details closed>
+  <summary>My C++ is rusty so write and test/visualize in python first.</summary>
+    <br>  
+    There are two methods using which we can solve the problem:<br>
+    1. Transform the graph and apply DFS<br/>
+    2. Using laplacian matrix, eigen values and vectors<br/>
+
+    Both of them are implemented in [core_logic.py](./core_logic.py) file along with visualisations using graph objects.
+    
+    > - We won't follow laplacian method becuase it tricky due to precision issues. Moreover it has O(n^3) time complexity.
+    > - Results of DFS algotithm are correct for both the meshes - `test_mesh.ply` and graph given in `assignment.pdf` 
+  </details>
+  <details closed>
+  <summary>Replicate algorithm in `Open3D-master`</summary>
+    <br>  
+    
+    First, check how to access `vertices`, `vertex_colors` and `adjacency_list` within `./Open3D/cpp/open3d/geometry/TriangleMesh.cpp` and re-write python logic in C++.
+    
+    1. Add `IdenticallyColoredConnectedComponents` method signature in `./Open3D/cpp/open3d/geometry/TriangleMesh.h` <br>
+    2. Add `IdenticallyColoredConnectedComponents` method definition in `./Open3D/cpp/open3d/geometry/TriangleMesh.cpp` <br>
+    3. Add `identically_colored_connected_components` python binding in `./Open3D/cpp/pybind/geometry/trianglemesh.cpp` <br>
+    4. Run `cd build && sudo cmake .. && make -j$(nproc) && sudo make install && make install-pip-package` <br>
+    5. Test new method in C++ and Python 
+  </details>
+- [ ] 3. Write `examples/cpp/Solution.cpp` to read the input mesh `test_mesh.ply`, find identically-colored connected components. **Change the build system** so that an executable can be build.
+- [ ] 4. Write `examples/python/solution.py` to read the input mesh `test_mesh.ply`, find identically-colored connected components and print results.
+  > Output the result of task 3 or 4 (their results shall be the same) to `examples/result.txt`.
+- [ ] 5. Write C++ and Python unit tests integrated with Open3D’s unit test system.
+- [ ] 6. Document your code, the algorithm used, how to build and run, and etc.
 
 ### Reference
 Here are some links for your reference:
