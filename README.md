@@ -114,10 +114,39 @@ You’re expected to:
   <summary>My C++ is rusty so write and test/visualize in python first.</summary>
     <br>  
     There are two methods using which we can solve the problem:<br>
-    1. Transform the graph and apply DFS<br/>
+    1. Transform the graph into a new graph where only **edges with same colored vertices are connected** and then apply DFS<br/>
     2. Using laplacian matrix, eigen values and vectors<br/>
+    3. (optimzed) Apply DFS without graph transformation.
 
-    Both of them are implemented in [core_logic.py](./core_logic.py) file along with visualisations using graph objects.
+    Both of them are implemented in [core_logic.py](./core_logic.py) file along with visualisations using graph objects.<br>
+    Solution `3.` is same as `1` but we make a minor change in DFS to make original graph appear as if it is the skipped new graph<br>
+
+    ```python
+    def dfs_custom(visited, graph, node, accumulator, vertex_colors):
+        if node not in visited:
+            accumulator.append(node)
+            visited.add(node)
+            for neighbour in graph[node]:
+                if vertex_colors[node]!=vertex_colors[neighbour]:
+                    continue
+                dfs_custom(visited, graph, neighbour, accumulator, vertex_colors)
+                
+    def identically_colored_connected_compontents_dfs_optimized(adjacency_list, vertex_colors, debug=False):
+        # convert to unique string ids
+        for i in range(len(vertex_colors)):
+            vertex_colors[i] = f'rgba({int(vertex_colors[i][0]*255)}, {int(vertex_colors[i][1]*255)}, {int(vertex_colors[i][2]*255)}, 255)'
+        # note: no new graph
+        # find connected components using bfs
+        connected_components = []
+        visited = set()
+        for v in range(len(adjacency_list)):
+            if v in visited:
+                continue
+            accumulator = []
+            dfs_custom(visited, adjacency_list, v, accumulator, vertex_colors)
+            connected_components.append(accumulator)
+        return connected_components
+    ```
     
     > - We won't follow laplacian method becuase it tricky due to precision issues. Moreover it has O(n^3) time complexity.
     > - Results of DFS algotithm are correct for both the meshes - `test_mesh.ply` and graph given in `assignment.pdf` 

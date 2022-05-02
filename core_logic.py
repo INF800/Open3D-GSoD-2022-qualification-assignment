@@ -42,6 +42,31 @@ def identically_colored_connected_compontents_dfs(adjacency_list, vertex_colors)
         connected_components.append(accumulator)
     return connected_components
 
+def dfs_custom(visited, graph, node, accumulator, vertex_colors):
+    if node not in visited:
+        accumulator.append(node)
+        visited.add(node)
+        for neighbour in graph[node]:
+            if vertex_colors[node]!=vertex_colors[neighbour]:
+                continue
+            dfs_custom(visited, graph, neighbour, accumulator, vertex_colors)
+            
+def identically_colored_connected_compontents_dfs_optimized(adjacency_list, vertex_colors, debug=False):
+    # convert to unique string ids
+    for i in range(len(vertex_colors)):
+        vertex_colors[i] = f'rgba({int(vertex_colors[i][0]*255)}, {int(vertex_colors[i][1]*255)}, {int(vertex_colors[i][2]*255)}, 255)'
+    # note: no new graph
+    # find connected components using bfs
+    connected_components = []
+    visited = set()
+    for v in range(len(adjacency_list)):
+        if v in visited:
+            continue
+        accumulator = []
+        dfs_custom(visited, adjacency_list, v, accumulator, vertex_colors)
+        connected_components.append(accumulator)
+    return connected_components
+
 def identically_colored_connected_compontents_laplacian(adjacency_list, vertex_colors, debug=False):
     # convert to unique string ids
     for i in range(len(vertex_colors)):
@@ -80,6 +105,8 @@ def identically_colored_connected_compontents(strategy, **kwargs):
         return identically_colored_connected_compontents_dfs(**kwargs)
     elif strategy=='laplacian':
         return identically_colored_connected_compontents_laplacian(**kwargs)
+    elif strategy=='dfs_optimized':
+        return identically_colored_connected_compontents_dfs_optimized(**kwargs)
     else:
         raise ValueError('unknown strategy: {}'.format(strategy))
 
@@ -204,32 +231,64 @@ def get_inputs2():
     mesh.compute_adjacency_list()
     return  mesh.adjacency_list, vertex_colors.tolist(), vertices
 
+def test_dfs_outputs(ccs1, ccs2):
+    assert len(ccs1)==len(ccs2), "n_components are not same for DFS outputs."    
+    for i, (cc1, cc2) in enumerate(zip(ccs1, ccs2)):
+        assert set(cc1)==set(cc2), f"element {i} is not same."
+
+def test_connected_components(ccs, adjacency_list):
+    try:
+        # a. check if tot num of vertices in ccs is same as total nodes
+        # b. vertices must appear only once in whole output
+        tot_nodes = len(adjacency_list)
+        visited = set()
+        tot_commponents = 0
+        for i, components in enumerate(ccs):
+            for v in components:
+                assert v not in visited, f"{v} appears more than once in connected components. There may be more such nodes."
+                visited.add(v)
+        assert len(visited)==tot_nodes
+    except Exception as e:
+        return f"❌ Failed! {e}"
+    return "✅ Passed!"
+
+
 
 if __name__=='__main__':
 
     adjacency_list, vertex_colors, vertices = get_inputs1()
     ccs1 = identically_colored_connected_compontents(strategy='dfs', adjacency_list=adjacency_list, vertex_colors=vertex_colors)
     adjacency_list, vertex_colors, vertices = get_inputs1()
-    ccs2 = identically_colored_connected_compontents(strategy='laplacian', adjacency_list=adjacency_list, vertex_colors=vertex_colors, debug=True)
-
+    ccs2 = identically_colored_connected_compontents(strategy='dfs_optimized', adjacency_list=adjacency_list, vertex_colors=vertex_colors, debug=True)
+    adjacency_list, vertex_colors, vertices = get_inputs1()
+    ccs3 = identically_colored_connected_compontents(strategy='laplacian', adjacency_list=adjacency_list, vertex_colors=vertex_colors, debug=True)
+    
     print("\nCASE 1:")
-    print("Connected components using DFS:")
-    print(ccs1)
-    print("Connected components using Laplacian Matrix:")
-    print(ccs2)
-
+    print("Connected components using DFS:", test_connected_components(ccs1, adjacency_list))
+    print("Output:", ccs1)
+    print("Connected components using DFS (optimized):", test_connected_components(ccs2, adjacency_list))
+    print("Output:", ccs2)
+    print("Connected components using Laplacian Matrix:", test_connected_components(ccs3, adjacency_list))
+    print("Output:", ccs3)
+    
     visualize_graph_objects(vertices, adjacency_list, vertex_colors, connected_components=ccs1)
 
     adjacency_list, vertex_colors, vertices = get_inputs2()
     ccs1 = identically_colored_connected_compontents(strategy='dfs', adjacency_list=adjacency_list, vertex_colors=vertex_colors)
     adjacency_list, vertex_colors, vertices = get_inputs2()
-    ccs2 = identically_colored_connected_compontents(strategy='laplacian', adjacency_list=adjacency_list, vertex_colors=vertex_colors, debug=False)
-
-    # Note: may not work because eigen values of laplacian matrix are negative!
+    ccs2 = identically_colored_connected_compontents(strategy='dfs_optimized', adjacency_list=adjacency_list, vertex_colors=vertex_colors, debug=True)
+    adjacency_list, vertex_colors, vertices = get_inputs2()
+    ccs3 = identically_colored_connected_compontents(strategy='laplacian', adjacency_list=adjacency_list, vertex_colors=vertex_colors, debug=True)
+    
     print("\nCASE 2:")
-    print("Connected components using DFS:")
-    print(ccs1)
-    print("Connected components using Laplacian Matrix:")
-    print(ccs2)    
+    print("Connected components using DFS:", test_connected_components(ccs1, adjacency_list))
+    print("Output:", ccs1)
+    print("Connected components using DFS (optimized):", test_connected_components(ccs2, adjacency_list))
+    print("Output:", ccs2)
+    print("Connected components using Laplacian Matrix:", test_connected_components(ccs3, adjacency_list))
+    print("Output:", ccs3)
 
     visualize_graph_objects(vertices, adjacency_list, vertex_colors, connected_components=ccs1)
+
+    # verify if two DFS outputs are same
+    # test_dfs_outputs(ccs1, ccs2)
