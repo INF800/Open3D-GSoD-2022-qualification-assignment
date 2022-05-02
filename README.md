@@ -113,12 +113,13 @@ You’re expected to:
   <details closed>
   <summary>My C++ is rusty so write and test/visualize in python first.</summary>
     <br>  
-    There are two methods using which we can solve the problem:<br>
-    1. Transform the graph into a new graph where only **edges with same colored vertices are connected** and then apply DFS<br/>
-    2. Using laplacian matrix, eigen values and vectors<br/>
-    3. (optimzed) Apply DFS without graph transformation.
+    There are three methods using which we can solve the problem:<br>
+    
+      1. Transform the graph into a new graph where only **edges with same colored vertices are connected** and then apply DFS<br/>
+      2. Using laplacian matrix, eigen values and vectors<br/>
+      3. (optimzed) Apply DFS without graph transformation.
 
-    Both of them are implemented in [core_logic.py](./core_logic.py) file along with visualisations using graph objects.<br>
+    All Three of them are implemented in [core_logic.py](./core_logic.py) file along with visualisations using graph objects.<br>
     Solution `3.` is same as `1` but we make a minor change in DFS to make original graph appear as if it is the skipped new graph<br>
 
     ```python
