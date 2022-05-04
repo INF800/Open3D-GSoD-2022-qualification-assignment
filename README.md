@@ -185,12 +185,7 @@ You’re expected to:
     > 
     > similarly the ```sudo apt install libfmt-dev libglfw3-dev ```
   </details>
-- [ ] 3. Write `examples/cpp/Solution.cpp` to read the input mesh `test_mesh.ply`, find identically-colored connected components. **Change the build system** so that an executable can be build.
-  <details closed>
-  <summary>How to run the example with cmake.</summary>
-    <br>
-  <details>
-- [x] 4. Write `examples/python/solution.py` to read the input mesh `test_mesh.ply`, find identically-colored connected components and print results.
+- [x] 3. Write `examples/python/solution.py` to read the input mesh `test_mesh.ply`, find identically-colored connected components and print results.
 
   <details closed>
   <summary>How to run the example with python enviroment</summary>
@@ -219,11 +214,31 @@ You’re expected to:
     75	
     78	79	
     ```
-
   </details>
-  > Output the result of task 3 or 4 (their results shall be the same) to `examples/result.txt`.
-- [ ] 5. Write C++ and Python unit tests integrated with Open3D’s unit test system.
-- [ ] 6. Document your code, the algorithm used, how to build and run, and etc.
+- [x] 4. Write Python unit test integrated with Open3D’s unit test system.
+  <details closed>
+  <summary>Steps</summary>
+    <br>
+
+    - Make sure pytest is present in environment <br>
+    
+    - Add pytest compatible test in `Open3D-master/python/test/test_solution.py`. <br>
+    
+    - Run test using `python3 -m pytest python/test/test_solution.py` from `Open3D-master/` directory. 
+    
+    <br> 
+  <details>
+
+- [ ] 5. Write `examples/cpp/Solution.cpp` to read the input mesh `test_mesh.ply`, find identically-colored connected components. **Change the build system** so that an executable can be build.
+  <details closed>
+  <summary>How to run the example with cmake.</summary>
+    <br>
+  <details>
+  
+  > Output the result of task 3 or 4 (their results shall be the same) to `examples/result.txt`.<br>
+
+- [ ] 6. Write C+ unit test integrated with Open3D’s unit test system.
+- [ ] 7. Document your code, the algorithm used, how to build and run, and etc.
 
 ### Reference
 Here are some links for your reference:
