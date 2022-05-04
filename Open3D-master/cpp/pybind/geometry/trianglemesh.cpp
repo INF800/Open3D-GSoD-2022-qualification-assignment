@@ -315,6 +315,9 @@ void pybind_trianglemesh(py::module &m) {
                  "max_iter"_a,
                  "energy"_a = MeshBase::DeformAsRigidAsPossibleEnergy::Spokes,
                  "smoothed_alpha"_a = 0.01)
+            .def("identically_colored_connected_components", 
+                 &TriangleMesh::IdenticallyColoredConnectedComponents,
+                 "This function finds all the identically colored connected vertices.")
             .def_static(
                     "create_from_point_cloud_alpha_shape",
                     [](const PointCloud &pcd, double alpha) {

@@ -109,7 +109,7 @@ You’re expected to:
 
 
 
-- [ ] 2. Write C++ function `open3d::geometry::TriangleMesh::IdenticallyColoredConnectedComponents` and Python binding `open3d.geometry.TriangleMesh.identically_colored_connected_components`.
+- [x] 2. Write C++ function `open3d::geometry::TriangleMesh::IdenticallyColoredConnectedComponents` and Python binding `open3d.geometry.TriangleMesh.identically_colored_connected_components`.
   <details closed>
   <summary>My C++ is rusty so write and test/visualize in python first.</summary>
     <br>  
@@ -133,11 +133,11 @@ You’re expected to:
                 dfs_custom(visited, graph, neighbour, accumulator, vertex_colors)
                 
     def identically_colored_connected_compontents_dfs_optimized(adjacency_list, vertex_colors, debug=False):
-        # convert to unique string ids
+        # convert to unique string ids (this step is not really required)
         for i in range(len(vertex_colors)):
             vertex_colors[i] = f'rgba({int(vertex_colors[i][0]*255)}, {int(vertex_colors[i][1]*255)}, {int(vertex_colors[i][2]*255)}, 255)'
         # note: no new graph
-        # find connected components using bfs
+        # find connected components using DFS
         connected_components = []
         visited = set()
         for v in range(len(adjacency_list)):
@@ -163,7 +163,15 @@ You’re expected to:
     3. Add `identically_colored_connected_components` python binding in `./Open3D/cpp/pybind/geometry/trianglemesh.cpp` <br>
     4. Run `cd build && sudo cmake .. && make -j$(nproc) && sudo make install && make install-pip-package` <br>
     5. Test new method in C++ and Python 
+    ```
+    // python output
+    [[0, 10, 20, 30, 40, 41, 1, 34, 24, 15, 5, 14, 23, 13, 21, 29, 19, 9, 8], [2, 12, 3, 4, 11], [6, 7], [16, 25, 17, 27, 18], [22, 32, 33, 31], [26, 36, 37, 28, 38, 39, 35], [42, 53, 63, 44, 52, 50, 49, 48, 47, 46, 55], [43, 83, 64, 74, 65, 73, 82, 72, 81, 71, 80, 62, 54, 77, 67, 76, 58, 59], [45], [51], [56, 66, 57], [60, 70, 61, 69, 68], [75], [78, 79]]
     
+    // cpp output
+    [[0, 8, 9, 10, 19, 20, 21, 30, 40, 1, 41, 34, 24, 23, 13, 14, 5, 15, 29], [2, 11, 3, 4, 12], [6, 7], [16, 17, 18, 27, 25], [22, 32, 33, 31], [26, 35, 36, 37, 38, 28, 39], [42, 44, 53, 52, 63, 46, 55, 47, 48, 49, 50], [43, 74, 64, 65, 73, 72, 71, 81, 80, 82, 83, 62, 54, 76, 67, 58, 59, 77], [45], [51], [56, 57, 66], [60, 61, 70, 69, 68], [75], [78, 79]]
+    ```
+    > May need ordering / sorting algorithm
+
     > ### Common issues
     > while running cpp file using `gcc examples/cpp/IdenticallyColoredConnectedComponents.cpp -lstdc++` error is raised -
     > ```
@@ -176,11 +184,43 @@ You’re expected to:
     > ```
     > 
     > similarly the ```sudo apt install libfmt-dev libglfw3-dev ```
-
-
   </details>
 - [ ] 3. Write `examples/cpp/Solution.cpp` to read the input mesh `test_mesh.ply`, find identically-colored connected components. **Change the build system** so that an executable can be build.
-- [ ] 4. Write `examples/python/solution.py` to read the input mesh `test_mesh.ply`, find identically-colored connected components and print results.
+  <details closed>
+  <summary>How to run the example with cmake.</summary>
+    <br>
+  <details>
+- [x] 4. Write `examples/python/solution.py` to read the input mesh `test_mesh.ply`, find identically-colored connected components and print results.
+
+  <details closed>
+  <summary>How to run the example with python enviroment</summary>
+    <br>
+    
+    Activate enviroment and run from main directory of Open3D:<br>
+    ```shell
+    $ source venv/bin/activate
+    $ cd Open3D-master
+    $ python3 examples/python/solution.py 
+    ```
+    Results will be generated in `examples/result.txt` like the one below for `test_mesh.ply`
+    ```txt
+    0	10	20	30	40	41	1	34	24	15	5	14	23	13	21	29	19	9	8	
+    2	12	3	4	11	
+    6	7	
+    16	25	17	27	18	
+    22	32	33	31	
+    26	36	37	28	38	39	35	
+    42	53	63	44	52	50	49	48	47	46	55	
+    43	83	64	74	65	73	82	72	81	71	80	62	54	77	67	76	58	59	
+    45	
+    51	
+    56	66	57	
+    60	70	61	69	68	
+    75	
+    78	79	
+    ```
+
+  </details>
   > Output the result of task 3 or 4 (their results shall be the same) to `examples/result.txt`.
 - [ ] 5. Write C++ and Python unit tests integrated with Open3D’s unit test system.
 - [ ] 6. Document your code, the algorithm used, how to build and run, and etc.

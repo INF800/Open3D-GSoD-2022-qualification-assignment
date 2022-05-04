@@ -257,6 +257,10 @@ public:
     /// mesh.
     std::vector<Eigen::Vector2i> GetSelfIntersectingTriangles() const;
 
+    /// Function that returns a list of connected components that are
+    /// connected and have same color.
+    std::vector<std::vector<long unsigned int>> IdenticallyColoredConnectedComponents() const;
+
     /// Function that tests if the triangle mesh is self-intersecting.
     /// Tests each triangle pair for intersection.
     bool IsSelfIntersecting() const;

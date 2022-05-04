@@ -24,6 +24,7 @@
 // IN THE SOFTWARE.
 // ----------------------------------------------------------------------------
 
+#include <iostream> // remove later 
 #include "open3d/geometry/TriangleMesh.h"
 
 #include <Eigen/Dense>
@@ -31,6 +32,7 @@
 #include <queue>
 #include <random>
 #include <tuple>
+#include <vector>
 
 #include "open3d/geometry/BoundingVolume.h"
 #include "open3d/geometry/IntersectionTest.h"
@@ -39,6 +41,26 @@
 #include "open3d/geometry/Qhull.h"
 #include "open3d/utility/Logging.h"
 #include "open3d/utility/Parallel.h"
+
+// todo: move inside utilities / private methods section
+void dfs_custom(
+    std::unordered_set<long unsigned int> &visited, 
+    std::vector<std::unordered_set<int>> graph, 
+    unsigned long int node,
+    std::vector<long unsigned int> &accumulator,
+    std::vector<Eigen::Vector3d> vertex_colors
+    ) {
+        if (!visited.count(node)){
+            accumulator.push_back(node);
+            visited.insert(node);
+            for (const auto &neighbour: graph[node]) {
+                if (vertex_colors[node]!=vertex_colors[neighbour]){
+                    continue;
+                }
+                dfs_custom(visited, graph, neighbour, accumulator, vertex_colors);
+            }   
+        }
+}
 
 namespace open3d {
 namespace geometry {
@@ -1738,5 +1760,19 @@ TriangleMesh::ComputeEdgeWeightsCot(
     return weights;
 }
 
+std::vector<std::vector<long unsigned int>> TriangleMesh::IdenticallyColoredConnectedComponents() const {
+    std::vector<std::vector<long unsigned int>> connected_components;
+    std::unordered_set<long unsigned int> visited;
+    for (long unsigned int v=0; v<adjacency_list_.size(); v++){
+        if (visited.count(v)){
+            continue;
+        }
+        std::vector<long unsigned int> accumulator;
+        dfs_custom(visited, adjacency_list_, v, accumulator, vertex_colors_);
+        connected_components.push_back(accumulator);
+    }
+    return connected_components;
+}
 }  // namespace geometry
 }  // namespace open3d
+
