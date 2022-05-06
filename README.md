@@ -332,7 +332,7 @@ I am more of a pythonista compared to a C++ techie. So, first I made sure that I
 > ### About the algorithm
 > We convert mesh into a graph i.e adjacency list (can be computed using pre-defined `ComputeAdjacecyList`). Then we find all unique paths by traversing the graph only along edges that have same colored vertices at both ends. Tada! The vertices along these unique paths are our connected components. 
 >
-> See step 2.
+  > See Task 2.
 
 <br>
 
@@ -345,7 +345,7 @@ Next, examples and unit tests are written for the core algorithm in both Python 
 
 1. Cone the repo `git clone https://github.com/INF800/Open3D-GSoD-2022-qualification-assignment`
 
-2. Make sure you are using ubuntu and have gcc, clang, cmake, ccache and python matching the versions in step 1.
+2. Make sure you are using ubuntu and have gcc, clang, cmake, ccache and python matching the versions in Task 1.
 
 3. Install Open3d dependencies (press `Y` multiple times when prompted for.)
     ```shell
