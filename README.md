@@ -12,7 +12,7 @@ You’re expected to:
 
 - [x] 1. Compile Open3D from source: http://www.open3d.org/docs/latest/compilation.html.
 
-  <details closed>
+  <details open>
   <summary>Compilation steps</summary>
     <br>
 
@@ -46,7 +46,7 @@ You’re expected to:
 
   </details>
 
-  <details closed>
+  <details open>
   <summary>Bind a dummy printing function to understand pybind</summary>
     <br>    
 
@@ -91,7 +91,7 @@ You’re expected to:
 
   </details>
 
-  <details closed>
+  <details open>
 
   <summary>Add Open3D</summary>
     <br>    
@@ -112,7 +112,7 @@ You’re expected to:
 
 
 - [x] 2. Write C++ function `open3d::geometry::TriangleMesh::IdenticallyColoredConnectedComponents` and Python binding `open3d.geometry.TriangleMesh.identically_colored_connected_components`.
-  <details closed>
+  <details open>
   <summary>My C++ is rusty so write and test/visualize in python first.</summary>
     <br>  
     There are three methods using which we can solve the problem:<br>
@@ -176,7 +176,7 @@ You’re expected to:
     > - We won't follow laplacian method becuase it tricky due to precision issues. Moreover it has O(n^3) time complexity.
     > - Results of DFS algotithm are correct for both the meshes - `test_mesh.ply` and graph given in `assignment.pdf` 
   </details>
-  <details closed>
+  <details open>
   <summary>Replicate algorithm in `Open3D-master`</summary>
     <br>  
     
@@ -211,7 +211,7 @@ You’re expected to:
   </details>
 - [x] 3. Write `examples/python/solution.py` to read the input mesh `test_mesh.ply`, find identically-colored connected components and print results.
 
-  <details closed>
+  <details open>
   <summary>How to run the example with python enviroment</summary>
     <br>
     
@@ -246,7 +246,7 @@ You’re expected to:
 
     <br>
 
-  <details closed>
+  <details open>
   <summary>Steps</summary>
     <br>
 
@@ -260,7 +260,7 @@ You’re expected to:
   <details>
 
 - [x] 5. Write `examples/cpp/Solution.cpp` to read the input mesh `test_mesh.ply`, find identically-colored connected components. **Change the build system** so that an executable can be build.
-  <details closed>
+  <details open>
   <summary>How to run the example with cmake.</summary>
     <br>
 
@@ -292,7 +292,7 @@ You’re expected to:
   <details>
   
 - [x] 6. Write C+ unit test integrated with Open3D’s unit test system.
-  <details closed>
+  <details open>
   <summary>How to create and run tests</summary>
     <br>
     
