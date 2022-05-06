@@ -2235,5 +2235,44 @@ TEST(TriangleMesh, CreateMeshCoordinateFrame) {
     ExpectEQ(center_frame->GetCenter(), z_center);
 }
 
+TEST(TriangleMesh, IdenticallyColoredConnectedComponents){
+    std::vector<Eigen::Vector3d> ref_vertices = {
+            {0.1, 0.2, 0.0}, {0.3, 0.2, 0.0}, {0.0, 0.1, 0.0},
+            {0.2, 0.1, 0.0}, {0.4, 0.1, 0.0}, {0.1, 0.0, 0.0},
+            {0.3, 0.0, 0.0}};
+
+    std::vector<Eigen::Vector3i> ref_triangles = {
+            {0, 2, 3}, {0, 3, 1}, {1, 3, 4}, 
+            {2, 5, 3}, {3, 5, 6}, {3, 6, 4}};
+    
+    std::vector<Eigen::Vector3d> ref_colors = {
+            {1, 0, 0}, {0, 1, 0}, {0, 0, 1},
+            {1, 0, 0}, {0, 1, 0}, {1, 0, 0},
+            {1, 0, 0}};
+
+    geometry::TriangleMesh mesh;
+    mesh.vertices_ = ref_vertices;
+    mesh.triangles_ = ref_triangles;
+    mesh.vertex_colors_ = ref_colors;
+    ExpectEQ(mesh.vertices_, ref_vertices);
+    ExpectEQ(mesh.triangles_, ref_triangles);
+    ExpectEQ(mesh.vertex_colors_, ref_colors);
+
+    if (!mesh.HasAdjacencyList()){
+        mesh.ComputeAdjacencyList();
+    }
+    EXPECT_TRUE(mesh.HasAdjacencyList());
+
+    std::vector<std::vector<unsigned long int>> all_ccs = mesh.IdenticallyColoredConnectedComponents();
+    std::unordered_set<unsigned long int> visited;
+    for (auto ccs: all_ccs){
+        for (auto v: ccs){
+            EXPECT_TRUE(visited.count(v)==0);
+            visited.insert(v);
+        }
+    }
+    EXPECT_EQ(visited.size(), mesh.adjacency_list_.size());
+}
+
 }  // namespace tests
 }  // namespace open3d

@@ -148,6 +148,28 @@ You’re expected to:
             connected_components.append(accumulator)
         return connected_components
     ```
+    <br>
+
+    ```shell
+    $ python3 core_logic.py
+    ```
+    ```
+    CASE 1:
+    Connected components using DFS: ✅ Passed!
+    Output: [[0, 3, 5, 6], [1, 4], [2]]
+    Connected components using DFS (optimized): ✅ Passed!
+    Output: [[0, 3, 5, 6], [1, 4], [2]]
+    Connected components using Laplacian Matrix: ✅ Passed!
+    Output: [[0, 3, 5, 6], [1, 4], [2]]
+
+    CASE 2:
+    Connected components using DFS: ✅ Passed!
+    Output: [[0, 8, 9, 10, 19, 20, 21, 30, 40, 1, 41, 34, 24, 23, 13, 14, 5, 15, 29], [2, 11, 3, 4, 12], [6, 7], [16, 17, 18, 27, 25], [22, 32, 33, 31], [26, 35, 36, 37, 38, 28, 39], [42, 44, 53, 52, 63, 46, 55, 47, 48, 49, 50], [43, 74, 64, 65, 73, 72, 71, 81, 80, 82, 83, 62, 54, 76, 67, 58, 59, 77], [45], [51], [56, 57, 66], [60, 61, 70, 69, 68], [75], [78, 79]]
+    Connected components using DFS (optimized): ✅ Passed!
+    Output: [[0, 5, 14, 13, 23, 24, 34, 1, 40, 41, 30, 20, 10, 9, 8, 19, 29, 21, 15], [2, 3, 4, 12, 11], [6, 7], [16, 17, 18, 27, 25], [22, 32, 33, 31], [26, 35, 36, 37, 38, 39, 28], [42, 44, 53, 52, 63, 46, 47, 48, 49, 50, 55], [43, 74, 64, 65, 73, 72, 71, 80, 81, 82, 83, 62, 54, 76, 67, 77, 58, 59], [45], [51], [56, 66, 57], [60, 69, 68, 70, 61], [75], [78, 79]]
+    Connected components using Laplacian Matrix: ❌ Failed! 0 appears more than once in connected components. There may be more such nodes.
+    Output: [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41], [42, 43, 44, 46, 47, 48, 49, 50, 52, 53, 54, 55, 58, 59, 62, 63, 64, 65, 67, 71, 72, 73, 74, 76, 77, 80, 81, 82, 83], [42, 43, 44, 46, 47, 48, 49, 50, 52, 53, 54, 55, 58, 59, 62, 63, 64, 65, 67, 71, 72, 73, 74, 76, 77, 80, 81, 82, 83], [42, 43, 44, 46, 47, 48, 49, 50, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 76, 77, 80, 81, 82, 83], [42, 43, 44, 46, 47, 48, 49, 50, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 76, 77, 80, 81, 82, 83], [78, 79], [45], [51], [75]]
+    ```
     
     > - We won't follow laplacian method becuase it tricky due to precision issues. Moreover it has O(n^3) time complexity.
     > - Results of DFS algotithm are correct for both the meshes - `test_mesh.ply` and graph given in `assignment.pdf` 
@@ -217,6 +239,11 @@ You’re expected to:
     ```
   </details>
 - [x] 4. Write Python unit test integrated with Open3D’s unit test system.
+
+    > TODO: Put `test_mesh.ply` file inside assets directory.
+
+    <br>
+
   <details closed>
   <summary>Steps</summary>
     <br>
@@ -262,8 +289,37 @@ You’re expected to:
 
   <details>
   
-- [ ] 6. Write C+ unit test integrated with Open3D’s unit test system.
-- [ ] 7. Document your code, the algorithm used, how to build and run, and etc.
+- [x] 6. Write C+ unit test integrated with Open3D’s unit test system.
+  <details closed>
+  <summary>How to create and run tests</summary>
+    <br>
+    
+    - Add your tests in relevant place(s). For us, it is inside `cpp/tests/geometry/TriangleMesh.cpp`.
+    - Generate Makefile for your tests: `cd build && sudo cmake -DBUILD_UNIT_TESTS=ON ..`
+    - Compile your specific test: `make tests geometry TriangleMesh` (Errors will be displayed here in this step.)
+    - Run executable: `./bin/tests`. 
+    - To check your test, use grep: `./bin/tests | grep IdenticallyColoredConnectedComponents`
+
+    ```
+    [ RUN      ] TriangleMesh.IdenticallyColoredConnectedComponents
+    [       OK ] TriangleMesh.IdenticallyColoredConnectedComponents (0 ms)
+    ```
+
+  </details>
+- [x] 7. Document your code, the algorithm used, how to build and run, and etc.
+
+  - All steps are mentioned in detail above 1-6 points (please expand the dropdown).
+  - Small write up is present below.
+
+---
+
+# Brief Explanation
+
+> **Note:** Everyting is done as expected except the un-ambigous ones. For example - sorting is not mentioned for connected components, guidlines on logic for unit-tests is not mentioned, where to store mesh files is not mentioned, what mesh files to use for unit tests is not mentioned.
+
+**Coming soon.**
+
+---
 
 ### Reference
 Here are some links for your reference:
