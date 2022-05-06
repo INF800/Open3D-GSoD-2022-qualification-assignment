@@ -1,3 +1,5 @@
+> **Note:** Steps to follow after cloning this repository is **mentioned in the end** above references section.
+
 # Open3D-GSoD-2022-qualification-assignment
 
 **Deadline:** May 06, 23:59 UTC / May 07, 05:29 AM IST
@@ -263,7 +265,7 @@ You’re expected to:
     <br>
 
     1. Write C++ code in `examples/cpp/Solution.cpp`.
-    2. TODO: Setup `CMakeLists.txt` to incorporate `Solution.cpp` in Makefile.
+    2. Add `open3d_add_example(Solution)` line in `Open3D-master/examples/cpp/CMakeLists.txt` to incorporate `Solution.cpp`
     3. Generate makefile by running `cd build && sudo cmake ..`
     4. Compile the solution by running `make Solution`. It will generate executable files inside `./bin/examples/`. 
     5. Goto `Open3D-master` and run `./build/bin/examples/Solution` (make sure .ply file exists in correct location as in `Solution.cpp`)
@@ -317,11 +319,101 @@ You’re expected to:
 
 > **Note:** Everyting is done as expected except the un-ambigous ones. For example - sorting is not mentioned for connected components, guidlines on logic for unit-tests is not mentioned, where to store mesh files is not mentioned, what mesh files to use for unit tests is not mentioned.
 
-**Coming soon.**
+<br>
+
+First of all, make sure that your specs and dependencies match with mine. If not, you might get into some trouble. Follow the steps from 1 above. And make sure `plotly` is available in environment if you want to run [core_logic.py](./core_logic.py) for visualisation.
+
+<br>
+
+I am more of a pythonista compared to a C++ techie. So, first I made sure that I understand how pybind is integrated and if all compilations steps are working properly. Next, I needed the core logic for finding connected components written in C++. To make sure algorithm works, I tinkered with it in python - code available at [core_logic.py](./core_logic.py). This piece of code has logic for 3 different algorithms for the problem along with mesh-agnostic unit testing logic and some cool visualisations using plotly graph objects. The optimized DFS algorithm was implemented in C++ [Open3D-master/cpp/open3d/geometry/TriangleMesh.cpp](./Open3D-master/cpp/open3d/geometry/TriangleMesh.cpp).
+
+<br>
+
+> ### About the algorithm
+> We convert mesh into a graph i.e adjacency list (can be computed using pre-defined `ComputeAdjacecyList`). Then we find all unique paths by traversing the graph only along edges that have same colored vertices at both ends. Tada! The vertices along these unique paths are our connected components. 
+>
+> See step 2.
+
+<br>
+
+Next, examples and unit tests are written for the core algorithm in both Python and C++. Because not much was mentioned by the organizing team, I took liberty to do this in different possible ways. In [python test](Open3D-master/python/test/test_solution.py), I read from complex graph [test_mesh.ply](./test_mesh.ply) and work on it but in C++ test we use simple graph as in [assignment.pdf](./assignment.pdf). But in [./Open3D-master/examples/cpp/Solution.cpp](./Open3D-master/examples/cpp/Solution.cpp) I showed how to read the complex grapg from [test_mesh.ply](./test_mesh.ply) for compensation. Many things can be improved here but I am not doing it becuase it is redundant - for example, writing unit test for both the cases (which I already checked in [core_logic.py](./core_logic.py)).
+
+<br>
+
+## Steps to follow once you clone the repository
+<br>
+
+1. Cone the repo `git clone https://github.com/INF800/Open3D-GSoD-2022-qualification-assignment`
+
+2. Make sure you are using ubuntu and have gcc, clang, cmake, ccache and python matching the versions in step 1.
+
+3. Install Open3d dependencies (press `Y` multiple times when prompted for.)
+    ```shell
+    $ cd Open3D-master
+    $ util/install_deps_ubuntu.sh
+    ```
+
+4. Generate `Makefile` inside build directory (create if not exists.) along with unit tests.
+    ```shell
+    $ mkdir build
+    $ cd build
+    $ sudo cmake -DBUILD_UNIT_TESTS=ON ..
+    ```
+    You should see these 3 lines below the separator without any error messages.
+    ```
+    -- ================================================================================
+    -- Configuring done
+    -- Generating done
+    -- Build files have been written to: /workspaces/Open3D-GSoD-2022-qualification-assignment/Open3D-master/build
+    ```
+
+5. Run C++ tests for TriangleMesh::IdenticallyColoredConnectedComponents.
+    ```shell
+    $ make tests 
+    $ ./bin/tests | grep IdenticallyColoredConnectedComponents
+    ```
+    Wait. You should see `OK` in second line as shown below.
+    ```
+    [ RUN      ] TriangleMesh.IdenticallyColoredConnectedComponents
+    [       OK ] TriangleMesh.IdenticallyColoredConnectedComponents (0 ms)
+    ```
+    You may wait or press `CTRL+C`.
+
+6. Run C++ `examples/cpp/Solution.cpp`. Generate the executable file inside build folder and run it from main directory.
+    ```
+    $ make -j$(nproc)
+    $ cd ..
+    $ ./build/examples/Solution
+    ```
+    This will overwrite / create `Open3D-master/examples/result.txt`
+
+7. Run Python test for `identically_colored_connected_components`
+    ```
+    $ cd build
+    $ make -j$(nproc)
+    $ make install-pip-package -j$(nproc)
+    $ cd ..
+    $ python3 -m pip install pytest
+    $ pytest python/test/test_solution.py
+    ```
+    You should see
+    ```
+    python/test/test_solution.py ..                       [100%]
+
+    =============== 2 passed in 1.69s ==========================
+    ```
+8. Run Python `examples/python/solution.py`
+    ```
+    $ python3  examples/python/solution.py
+    ```
+    This will overwrite / create `Open3D-master/examples/result.txt`
+
+<br>
+<br>
 
 ---
 
-### Reference
+### References
 Here are some links for your reference:
 
 • Open3D repository: https://github.com/isl-org/Open3D. <br/>
