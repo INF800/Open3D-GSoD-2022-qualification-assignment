@@ -213,6 +213,7 @@ You’re expected to:
     60	70	61	69	68	
     75	
     78	79	
+    
     ```
   </details>
 - [x] 4. Write Python unit test integrated with Open3D’s unit test system.
@@ -229,14 +230,38 @@ You’re expected to:
     <br> 
   <details>
 
-- [ ] 5. Write `examples/cpp/Solution.cpp` to read the input mesh `test_mesh.ply`, find identically-colored connected components. **Change the build system** so that an executable can be build.
+- [x] 5. Write `examples/cpp/Solution.cpp` to read the input mesh `test_mesh.ply`, find identically-colored connected components. **Change the build system** so that an executable can be build.
   <details closed>
   <summary>How to run the example with cmake.</summary>
     <br>
+
+    1. Write C++ code in `examples/cpp/Solution.cpp`.
+    2. TODO: Setup `CMakeLists.txt` to incorporate `Solution.cpp` in Makefile.
+    3. Generate makefile by running `cd build && sudo cmake ..`
+    4. Compile the solution by running `make Solution`. It will generate executable files inside `./bin/examples/`. 
+    5. Goto `Open3D-master` and run `./build/bin/examples/Solution` (make sure .ply file exists in correct location as in `Solution.cpp`)
+    6. Output will be generated at `examples/result.txt`
+    
+    ```
+    0	10	20	30	40	41	1	34	24	15	5	14	23	13	21	29	19	9	8	
+    2	12	3	4	11	
+    6	7	
+    16	25	17	27	18	
+    22	32	33	31	
+    26	36	37	28	38	39	35	
+    42	53	63	44	52	50	49	48	47	46	55	
+    43	83	64	74	65	73	82	72	81	71	80	62	54	77	67	76	58	59	
+    45	
+    51	
+    56	66	57	
+    60	70	61	69	68	
+    75	
+    78	79	
+
+    ```
+
   <details>
   
-  > Output the result of task 3 or 4 (their results shall be the same) to `examples/result.txt`.<br>
-
 - [ ] 6. Write C+ unit test integrated with Open3D’s unit test system.
 - [ ] 7. Document your code, the algorithm used, how to build and run, and etc.
 
